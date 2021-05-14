@@ -3,6 +3,8 @@ from __future__ import annotations
 import copy
 from typing import Optional, Tuple, Type, TypeVar, TYPE_CHECKING
 
+from rendor_order import RendorOrder
+
 if TYPE_CHECKING:
     from components.ai import BaseAI
     from components.fighter import Fighter
@@ -25,7 +27,8 @@ class Entity:
         char: str = '?', 
         color: Tuple[int, int, int] = (255, 255, 255),
         name: str = "<Unnamed>",
-        blocks_movement: bool = False
+        blocks_movement: bool = False,
+        rendor_order : RendorOrder = RendorOrder.CORPSE
     ):
         self.x = x
         self.y = y
@@ -33,6 +36,7 @@ class Entity:
         self.color = color
         self.name = name
         self.blocks_movement = blocks_movement
+        self.rendor_order = rendor_order
         if gamemap:
             # If gamemap isn't provided now then it will be set later
             self.gamemap = gamemap
@@ -80,7 +84,7 @@ class Actor(Entity):
             char=char,
             color=color,
             name=name,
-            blocks_movement=True,
+            blocks_movement=True,rendor_order=RendorOrder.ACTOR
         )
 
         self.ai: Optional[BaseAI] = ai_cls(self)
