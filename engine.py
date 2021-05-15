@@ -9,6 +9,7 @@ from tcod.map import compute_fov
 
 from actions import EscapeAction, MovementAction
 from input_handlers import MainEventHandler
+from message_log import MessageLog
 from render_functions import render_bar
 
 if TYPE_CHECKING:
@@ -21,6 +22,7 @@ class Engine:
 
     def __init__(self, player: Actor):
         self.event_handler: EventHandler = MainEventHandler(self)
+        self.message_log = MessageLog()
         self.player = player
 
     def handle_enemy_turns(self) -> None:
@@ -41,6 +43,8 @@ class Engine:
 
     def render(self, console: Console, context: Context) -> None:
         self.game_map.render(console)
+
+        self.message_log.render(console=console, x=21, y=45, width=40, height=5)
 
         render_bar(
             console=console,
