@@ -1,5 +1,7 @@
 import copy
 
+from numpy.lib.shape_base import column_stack
+
 import tcod
 
 import color
@@ -56,8 +58,10 @@ def main():
 
         # Main game loop
         while True:
-            engine.render(console=root_console, context=context)
-            engine.event_handler.handle_events()
+            root_console.clear()
+            engine.event_handler.on_render(console=root_console)
+            context.present(root_console)
+            engine.event_handler.handle_events(context)
 
 
 if __name__ == "__main__":
