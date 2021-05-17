@@ -22,7 +22,7 @@ class Message:
 
 class MessageLog:
     def __init__(self) -> None:
-        self.messsages: List[Message] = []
+        self.messages: List[Message] = []
 
     def add_message(
         self, text: str, fg: Tuple[int, int, int]=color.white, *, stack: bool=True,
@@ -32,10 +32,10 @@ class MessageLog:
         If `stack` is true then the message can stack witha  previous message
         of the same text.
         """
-        if stack and self.messsages and text == self.messsages[-1].plain_text:
-            self.messsages[-1].count += 1
+        if stack and self.messages and text == self.messages[-1].plain_text:
+            self.messages[-1].count += 1
         else:
-            self.messsages.append(Message(text, fg))
+            self.messages.append(Message(text, fg))
 
     def render(
         self, console: tcod.Console, x: int, y: int, width: int, height: int,
@@ -44,7 +44,7 @@ class MessageLog:
         `x`, `y`, `width`, `height` is the rectangular region to render onto
         the `console`.
         """
-        self.render_messages(console, x, y, width, height, self.messsages)
+        self.render_messages(console, x, y, width, height, self.messages)
 
     @staticmethod
     def render_messages(
